@@ -21,9 +21,9 @@ public class DistanceConverter extends JFrame{
     private JButton kmToMeterButton = new JButton("Convert");
     private JButton kmToMilesButton = new JButton("Convert");
 
-    ConvertButtonListener convertButtonListener = new ConvertButtonListener();
+    Utility utility = new Utility();
 
-    JPanel panel = new JPanel(new GridBagLayout());
+    ConvertButtonListener convertButtonListener = new ConvertButtonListener();
 
     private JButton backButton = new JButton("Back");
 
@@ -38,7 +38,8 @@ public class DistanceConverter extends JFrame{
     public void prepareGUI() {
         this.setTitle("Converter Application");
 
-        addUIComponents();
+        addListenersToButtons();
+        JPanel panel = utility.addUIComponents(4, 3, labels, textFields, buttons, "Distance Converter");
 
         this.add(panel);
         this.pack();
@@ -47,32 +48,6 @@ public class DistanceConverter extends JFrame{
         this.setLocationRelativeTo(null);
     }
 
-    public void addUIComponents(){
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = new Insets(10, 10, 10, 10);
-
-        addListenersToButtons();
-
-        for(int i = 0; i < 4; i++){
-            constraints.gridy = i;
-            for(int j = 0; j < 3; j++){
-                constraints.gridx = j;
-                if(j == 0)
-                    this.panel.add(this.labels[i], constraints);
-                else if(j == 1)
-                    this.panel.add(this.textFields[i], constraints);
-                else
-                    this.panel.add(this.buttons[i], constraints);
-            }
-        }
-
-        constraints.gridx = 0;
-        constraints.gridy = 4;
-        this.panel.add(this.backButton, constraints);
-
-        this.panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Distance Converter"));
-    }
 
     public void addListenersToButtons(){
         for(int i = 0; i < this.buttons.length; i++){
@@ -81,7 +56,6 @@ public class DistanceConverter extends JFrame{
     }
 
     private class ConvertButtonListener implements ActionListener{
-
         @Override
         public void actionPerformed(ActionEvent e) {
             Utility utility = new Utility();
