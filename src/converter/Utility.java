@@ -34,8 +34,6 @@ public class Utility extends JFrame{
         return panel;
     }
 
-
-
     public void displayDialogueBox(double value, String message){
         if(value < 0.0)
             displayErrorMessage();
